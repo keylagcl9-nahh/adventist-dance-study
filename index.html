@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="description" content="Dance & Devotion: a General Biology research study examining dance ability and church involvement among Seventh-day Adventist students and faculty at Southern Adventist University." />
+<title>Dance &amp; Devotion — A General Biology Research Study</title>
+
+<!-- ============================================================
+     Final research website — Dance & Devotion
+     Authors: Peyton Meadows, Keyla Castro, Brendon Kang, John Chawnghlut
+     Course: General Biology · Southern Adventist University
+     Faculty Advisor: Professor David Nelsen
+     Contact: castrokeyla@southern.edu
+     Full manuscript: linked from hero CTA.
+     Raw data (OMV): SDA_dance_data.omv  (sits alongside this HTML).
+     Figures live in /figures/ next to this file.
+============================================================ -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+  /* ---------- Tokens ---------- */
+  :root {
+    --navy: #1F3A5F;
+    --navy-deep: #142845;
+    --blue: #2E75B6;
+    --amber: #C9956D;
+    --amber-bright: #E5A33C;
+    --bg: #FAFAF7;
+    --bg-warm: #F1EDE3;
+    --bg-cream: #F5F1E8;
+    --ink: #1A1A1A;
+    --ink-soft: #4A4A4A;
+    --muted: #6B6B6B;
+    --rule: #DDD8CD;
+    --card: #FFFFFF;
+    --shadow-sm: 0 1px 2px rgba(20, 40, 69, 0.06);
+    --shadow-md: 0 8px 24px rgba(20, 40, 69, 0.08);
+    --shadow-lg: 0 20px 48px rgba(20, 40, 69, 0.12);
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --radius-lg: 24px;
+    --container: 1140px;
+    --gutter: clamp(20px, 5vw, 48px);
+  }
+
+  /* ---------- Reset ---------- */
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.65;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  img { max-width: 100%; height: auto; display: block; }
+  a { color: var(--blue); text-decoration: none; transition: color .2s ease; }
+  a:hover { color: var(--navy); }
+
+  h1, h2, h3, h4 {
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 600;
+    color: var(--navy);
+    line-height: 1.2;
+    margin: 0 0 .5em;
+    letter-spacing: -0.01em;
+  }
+  h1 { font-size: clamp(2.4rem, 5.5vw, 4rem); font-weight: 700; letter-spacing: -0.02em; }
+  h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); }
+  h3 { font-size: clamp(1.25rem, 2vw, 1.5rem); }
+  p { margin: 0 0 1em; }
+  ul { padding-left: 1.2em; }
+  ul li { margin: .35em 0; }
+
+  .container {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding-left: var(--gutter);
+    padding-right: var(--gutter);
+  }
+
+  /* ---------- Navigation ---------- */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(250, 250, 247, 0.85);
+    backdrop-filter: saturate(180%) blur(12px);
+    -webkit-backdrop-filter: saturate(180%) blur(12px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 0;
+  }
+  .nav-brand {
+    font-family: "Fraunces", serif;
+    font-weight: 700;
+    color: var(--navy);
+    font-size: 1.1rem;
+    letter-spacing: -0.01em;
+  }
+  .nav-brand span { color: var(--amber-bright); font-style: italic; }
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+    margin: 0; padding: 0;
+  }
+  .nav-links a {
+    color: var(--ink-soft);
+    font-weight: 500;
+    font-size: 0.95rem;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: "";
+    position: absolute;
+    left: 0; bottom: -6px;
+    height: 2px; width: 0;
+    background: var(--amber-bright);
+    transition: width .25s ease;
+  }
+  .nav-links a:hover::after,
+  .nav-links a.active::after { width: 100%; }
+  .nav-toggle {
+    display: none;
+    border: none; background: transparent;
+    cursor: pointer;
+    width: 40px; height: 40px;
+    padding: 8px;
+  }
+  .nav-toggle svg { stroke: var(--navy); }
+
+  @media (max-width: 880px) {
+    .nav-toggle { display: block; }
+    .nav-links {
+      position: absolute;
+      top: 100%; right: var(--gutter);
+      flex-direction: column;
+      gap: 0;
+      background: var(--card);
+      border: 1px solid var(--rule);
+      border-radius: var(--radius-md);
+      padding: 8px;
+      box-shadow: var(--shadow-md);
+      min-width: 200px;
+      transform: translateY(-8px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s ease, transform .2s ease;
+    }
+    .nav-links.open {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+    .nav-links li { width: 100%; }
+    .nav-links a {
+      display: block;
+      padding: 12px 14px;
+      border-radius: 8px;
+    }
+    .nav-links a:hover { background: var(--bg-warm); }
+    .nav-links a::after { display: none; }
+  }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    position: relative;
+    background: linear-gradient(180deg, var(--bg-cream) 0%, var(--bg) 100%);
+    padding: clamp(60px, 10vh, 110px) 0 clamp(50px, 8vh, 90px);
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(229,163,60,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: "";
+    position: absolute;
+    bottom: -300px; left: -200px;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(46,117,182,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-inner { position: relative; z-index: 1; }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--amber-bright);
+    background: rgba(229,163,60,0.10);
+    padding: 8px 16px;
+    border-radius: 999px;
+    margin-bottom: 24px;
+  }
+  .eyebrow .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--amber-bright);
+    box-shadow: 0 0 0 4px rgba(229,163,60,0.18);
+  }
+  .hero h1 { max-width: 18ch; }
+  .hero-tag {
+    font-family: "Fraunces", serif;
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: clamp(1.1rem, 1.8vw, 1.35rem);
+    margin-top: 12px;
+    max-width: 56ch;
+  }
+  .hero-byline {
+    margin-top: 26px;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+  .hero-byline strong { color: var(--ink); font-weight: 600; }
+
+  .hero-cta {
+    margin-top: 36px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 13px 22px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: transform .15s ease, box-shadow .2s ease, background .2s ease, color .2s ease;
+    border: 1px solid transparent;
+    cursor: pointer;
+  }
+  .btn-primary {
+    background: var(--navy);
+    color: #fff;
+    box-shadow: var(--shadow-sm);
+  }
+  .btn-primary:hover {
+    background: var(--navy-deep);
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+  }
+  .btn-ghost {
+    background: transparent;
+    color: var(--navy);
+    border-color: var(--rule);
+  }
+  .btn-ghost:hover {
+    background: var(--card);
+    border-color: var(--navy);
+    transform: translateY(-1px);
+    color: var(--navy);
+  }
+  .btn svg { width: 16px; height: 16px; }
+
+  /* ---------- Status banner ---------- */
+  .status-banner {
+    background: var(--bg-warm);
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 14px 0;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+  }
+  .status-banner .container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .status-pulse {
+    flex: 0 0 auto;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--amber-bright);
+    box-shadow: 0 0 0 4px rgba(229,163,60,0.25);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 4px rgba(229,163,60,0.25); }
+    50% { box-shadow: 0 0 0 8px rgba(229,163,60,0.05); }
+  }
+
+  /* ---------- Sections ---------- */
+  section { padding: clamp(60px, 9vh, 110px) 0; }
+  .section-head {
+    margin-bottom: clamp(32px, 5vw, 56px);
+  }
+  .section-num {
+    font-family: "Fraunces", serif;
+    font-style: italic;
+    color: var(--amber-bright);
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+    display: block;
+  }
+  .section-lede {
+    color: var(--ink-soft);
+    font-size: clamp(1.05rem, 1.6vw, 1.2rem);
+    max-width: 60ch;
+  }
+
+  .alt-bg { background: var(--bg-warm); }
+  .cream-bg { background: var(--bg-cream); }
+
+  /* ---------- Card grid ---------- */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 22px;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-md);
+    padding: 28px;
+    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: rgba(46,117,182,0.3);
+  }
+  .card-icon {
+    display: inline-flex;
+    width: 44px; height: 44px;
+    align-items: center; justify-content: center;
+    border-radius: 12px;
+    background: rgba(46,117,182,0.10);
+    color: var(--blue);
+    margin-bottom: 18px;
+  }
+  .card-icon.amber {
+    background: rgba(229,163,60,0.12);
+    color: var(--amber-bright);
+  }
+  .card-icon.navy {
+    background: rgba(31,58,95,0.10);
+    color: var(--navy);
+  }
+  .card h3 { margin-bottom: 8px; }
+  .card p { color: var(--ink-soft); margin: 0; font-size: 0.97rem; }
+
+  /* ---------- Findings (highlighted) ---------- */
+  .findings .grid { gap: 20px; }
+  .finding {
+    background: var(--card);
+    border-radius: var(--radius-md);
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--rule);
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .finding:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+  }
+  .finding::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px; height: 100%;
+    background: var(--blue);
+  }
+  .finding.primary::before { background: var(--amber-bright); }
+  .finding.null::before { background: var(--muted); }
+  .finding.support::before { background: var(--navy); }
+  .finding-tag {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 14px;
+  }
+  .finding.primary .finding-tag { color: var(--amber-bright); }
+  .finding.null .finding-tag { color: var(--muted); }
+  .finding.support .finding-tag { color: var(--navy); }
+  .finding h3 { font-size: 1.3rem; margin-bottom: 10px; }
+  .finding p { color: var(--ink-soft); margin-bottom: 14px; }
+  .finding .stat {
+    display: inline-block;
+    font-family: "Fraunces", serif;
+    font-weight: 600;
+    color: var(--navy);
+    background: var(--bg-warm);
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+  }
+
+  /* ---------- Stats highlight ---------- */
+  .key-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-top: 28px;
+  }
+  .stat-tile {
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-md);
+    padding: 22px;
+    text-align: center;
+  }
+  .stat-tile .num {
+    font-family: "Fraunces", serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1;
+    display: block;
+  }
+  .stat-tile .label {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-top: 8px;
+  }
+
+  /* ---------- Tables ---------- */
+  .table-wrap {
+    overflow-x: auto;
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+  }
+  table.results {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.96rem;
+    min-width: 540px;
+  }
+  table.results th, table.results td {
+    text-align: left;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--rule);
+  }
+  table.results th {
+    background: var(--bg-warm);
+    font-weight: 600;
+    color: var(--navy);
+    font-size: 0.86rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  table.results tr:last-child td { border-bottom: none; }
+  table.results td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  table.results .sig { color: var(--amber-bright); font-weight: 700; }
+  table.results .ns { color: var(--muted); }
+  .table-caption {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-top: 14px;
+    line-height: 1.5;
+    max-width: 80ch;
+  }
+  .table-caption em { font-style: italic; }
+
+  /* ---------- Figures ---------- */
+  .figures .grid { grid-template-columns: 1fr; gap: 40px; }
+  @media (min-width: 880px) {
+    .figures .grid { grid-template-columns: repeat(2, 1fr); }
+    .figures .figure-card.featured { grid-column: 1 / -1; }
+  }
+  .figure-card {
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: box-shadow .2s ease, transform .2s ease;
+  }
+  .figure-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+  .figure-img {
+    background: var(--bg-warm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 16 / 10;
+    border-bottom: 1px solid var(--rule);
+    color: var(--muted);
+    font-size: 0.9rem;
+    text-align: center;
+    padding: 24px;
+  }
+  .figure-img img { object-fit: contain; max-height: 100%; }
+  .figure-meta { padding: 22px 26px; }
+  .figure-meta strong {
+    color: var(--navy);
+    font-family: "Fraunces", serif;
+    font-weight: 700;
+    margin-right: 6px;
+  }
+  .figure-meta p { color: var(--ink-soft); font-size: 0.92rem; margin: 0; }
+
+  /* ---------- Lists styling ---------- */
+  .clean-list { list-style: none; padding: 0; }
+  .clean-list li {
+    padding: 14px 0 14px 36px;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+    color: var(--ink-soft);
+  }
+  .clean-list li:last-child { border-bottom: none; }
+  .clean-list li::before {
+    content: "";
+    position: absolute;
+    left: 8px; top: 22px;
+    width: 16px; height: 2px;
+    background: var(--amber-bright);
+  }
+
+  /* ---------- Pull quote ---------- */
+  .pullquote {
+    background: var(--navy);
+    color: #fff;
+    padding: clamp(40px, 6vw, 70px);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    margin: 40px auto;
+    max-width: 920px;
+    position: relative;
+    overflow: hidden;
+  }
+  .pullquote::before {
+    content: "";
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(229,163,60,0.18) 0%, transparent 70%);
+  }
+  .pullquote p {
+    font-family: "Fraunces", serif;
+    font-size: clamp(1.3rem, 2.5vw, 1.85rem);
+    line-height: 1.4;
+    font-weight: 500;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+  }
+  .pullquote .attribution {
+    margin-top: 20px;
+    font-family: "Inter", sans-serif;
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.7);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ---------- Footer / contact ---------- */
+  .contact {
+    background: var(--navy-deep);
+    color: #fff;
+    text-align: center;
+    padding: clamp(60px, 8vh, 100px) 0;
+  }
+  .contact h2 { color: #fff; }
+  .contact .section-num { color: var(--amber-bright); }
+  .contact p { color: rgba(255,255,255,0.78); max-width: 56ch; margin-left: auto; margin-right: auto; }
+  .contact .hero-cta { justify-content: center; }
+  .contact .btn-ghost {
+    color: #fff;
+    border-color: rgba(255,255,255,0.3);
+  }
+  .contact .btn-ghost:hover {
+    background: #fff;
+    color: var(--navy);
+    border-color: #fff;
+  }
+
+  footer.site {
+    background: var(--navy-deep);
+    color: rgba(255,255,255,0.55);
+    text-align: center;
+    padding: 28px 0;
+    font-size: 0.85rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  footer.site a { color: rgba(255,255,255,0.78); }
+
+  /* ---------- Animations ----------
+     Fade-in is opt-in: a .js-ready class on <html> activates the hidden
+     state. If JS is disabled or fails, content stays fully visible. */
+  html.js-ready .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  html.js-ready .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html.js-ready .fade-in { opacity: 1; transform: none; }
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      transition-duration: 0.001ms !important;
+    }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============== NAVIGATION ============== -->
+<nav class="nav" aria-label="Site navigation">
+  <div class="container nav-inner">
+    <a href="#top" class="nav-brand">Dance &amp; <span>Devotion</span></a>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <line x1="4" y1="7" x2="20" y2="7" />
+        <line x1="4" y1="12" x2="20" y2="12" />
+        <line x1="4" y1="17" x2="20" y2="17" />
+      </svg>
+    </button>
+    <ul class="nav-links">
+      <li><a href="#abstract">Abstract</a></li>
+      <li><a href="#methods">Methods</a></li>
+      <li><a href="#findings">Findings</a></li>
+      <li><a href="#figures">Figures</a></li>
+      <li><a href="#discussion">Discussion</a></li>
+      <li><a href="#materials">Materials</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ============== HERO ============== -->
+<header class="hero" id="top">
+  <div class="container hero-inner">
+    <span class="eyebrow"><span class="dot"></span> General Biology Research Study · 2026</span>
+    <h1>Dance &amp; Devotion</h1>
+    <p class="hero-tag">A General Biology research study of dance ability, dance attitudes, and church involvement among Seventh-day Adventist students and faculty at Southern Adventist University.</p>
+    <p class="hero-byline">
+      <strong>Peyton Meadows</strong> · <strong>Keyla Castro</strong> · <strong>Brendon Kang</strong> · <strong>John Chawnghlut</strong>
+      <br />Department of Biology · <strong>Southern Adventist University</strong>
+      <br />Faculty Advisor: <strong>Professor David Nelsen</strong>
+    </p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="https://docs.google.com/document/d/1vNeDvFnBAWtvHMRiBmYEAZAf1kXYYcMezLGJA5K1ehw/edit?usp=sharing" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Read the Full Paper
+      </a>
+      <a class="btn btn-ghost" href="SDA_dance_data.omv" download>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download Raw Data (OMV)
+      </a>
+      <a class="btn btn-ghost" href="#abstract">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+        Jump to Findings
+      </a>
+    </div>
+  </div>
+</header>
+
+
+<!-- ============== ABSTRACT / OVERVIEW ============== -->
+<section id="abstract">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-num">01 / Overview</span>
+      <h2>Abstract</h2>
+      <p class="section-lede">A research examination of how dance ability, attitudes toward dance, and church involvement compare across Seventh-day Adventist students and faculty.</p>
+    </div>
+
+    <p>Dance occupies a culturally contested place in Seventh-day Adventist tradition, with historic guidance cautioning against social dance even as younger members increasingly view structured forms — line dance, choreographed worship — as compatible with practice. Whether differences in attitudes toward dance translate into measurable differences in dance ability, and whether either tracks with how engaged a member is with their church, has rarely been examined empirically.</p>
+
+    <p>This study compared 41 Adventist participants (17 faculty/professors; 24 students) on three measures: a self-reported church-involvement index (SDA index), a self-reported attitudinal Dancing index, and an observed Dance performance score on a structured line-dance task. Group comparisons were conducted in Jamovi using nonparametric and parametric tests appropriate to each variable's distribution.</p>
+
+    <p>Self-reported church involvement did not differ between students and faculty, suggesting comparable Adventist cultural exposure across the two groups. Despite this similarity, students reported substantially more permissive attitudes toward dance than faculty and scored higher on the observed dance task. These findings suggest that dance ability and attitudes may be shaped by generational, social, or educational factors operating alongside, rather than mirroring, religious involvement.</p>
+
+    <div class="key-stats">
+      <div class="stat-tile">
+        <span class="num">41</span>
+        <span class="label">Participants (N)</span>
+      </div>
+      <div class="stat-tile">
+        <span class="num">3</span>
+        <span class="label">Outcome measures</span>
+      </div>
+      <div class="stat-tile">
+        <span class="num">2</span>
+        <span class="label">Comparison groups</span>
+      </div>
+      <div class="stat-tile">
+        <span class="num">p &lt; .001</span>
+        <span class="label">Primary finding</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== RESEARCH QUESTION ============== -->
+<section id="question" class="alt-bg">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-num">02 / Research Question</span>
+      <h2>What we asked</h2>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <span class="card-icon amber" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </span>
+        <h3>Does church involvement differ between groups?</h3>
+        <p>Are students and faculty/professors equally engaged with the church, as measured by self-reported SDA index?</p>
+      </div>
+      <div class="card">
+        <span class="card-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </span>
+        <h3>Do attitudes toward dance differ?</h3>
+        <p>Do students and faculty/professors hold different views on the acceptability and value of dance, as captured by the Dancing index?</p>
+      </div>
+      <div class="card">
+        <span class="card-icon navy" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </span>
+        <h3>Does dance performance differ?</h3>
+        <p>Do students and faculty/professors differ in their observed ability to perform a structured line dance, scored on a standardized rubric?</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== BACKGROUND ============== -->
+<section id="background">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-num">03 / Background</span>
+      <h2>Why this question matters</h2>
+    </div>
+
+    <p>Dance has historically been a contested practice within Seventh-day Adventism. Denominational guidance has cautioned against social dance as inconsistent with reverent embodiment, while younger members increasingly view structured movement — line dance, choreographed worship — as benign or even devotional. This generational shift in attitude has been described informally but rarely studied empirically.</p>
+
+    <p>At the same time, embodied behaviors are recognized in the broader literature as meaningful indicators of group identity, social comfort, and shared practice. Whether attitudes toward a culturally disputed activity like dance also correspond to measurable differences in actual dance ability — and whether either dimension tracks with religious engagement — is largely unknown in this community.</p>
+
+    <p>This study addresses that gap by comparing self-reported attitudes, observed dance ability, and self-reported church involvement across two Adventist groups: students (predominantly aged 18–24) and faculty/professors (predominantly aged 35+) at a single Adventist institution.</p>
+  </div>
+</section>
+
+<!-- ============== METHODS ============== -->
+<section id="methods" class="cream-bg">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-num">04 / Methods</span>
+      <h2>How we studied it</h2>
+      <p class="section-lede">All analyses were conducted in Jamovi 2.7 using GAMLj (general linear model) and built-in nonparametric tests.</p>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <span class="card-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </span>
+        <h3>Participants</h3>
+        <p>N = 41 self-identified Seventh-day Adventists at a single SDA institution. Convenience sample comprising 17 faculty/professors and 24 students. Age distribution ranged from 18–24 (n = 24) through 65+ (n = 3).</p>
+      </div>
+      <div class="card">
+        <span class="card-icon amber" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11H5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2h-4"/><polyline points="9 11 12 8 15 11"/><line x1="12" y1="2" x2="12" y2="14"/></svg>
+        </span>
+        <h3>Measures</h3>
+        <p>Three primary outcomes were collected: a self-reported <strong>SDA index</strong> capturing church involvement; a self-reported attitudinal <strong>Dancing index</strong>; and an observed <strong>Dance performance score</strong> assigned by trained raters using a structured rubric applied to a single line-dance performance.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon navy" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        </span>
+        <h3>Procedure</h3>
+        <p>Participants completed the survey, watched a short video demonstration of the line-dance routine, and performed the routine once. Performances were scored by trained raters using a standardized rubric.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        </span>
+        <h3>Analysis</h3>
+        <p>Group comparisons used independent-samples t-tests (general linear models) when assumptions were met, and the Kruskal–Wallis test for the SDA index because Levene's test indicated unequal variances. Pearson correlations examined pairwise associations among the three measures. α = .05, two-tailed.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== KEY FINDINGS ============== -->
+<section id="findings" class="findings">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-num">05 / Key Findings</span>
+      <h2>What we found</h2>
+      <p class="section-lede">Three findings worth holding together: a meaningful similarity, a strong difference, and a modest supporting one.</p>
+    </div>
+
+    <div class="grid">
+      <article class="finding null">
+        <span class="finding-tag">Informative null · Comparable cultural exposure</span>
+        <h3>Church involvement was statistically indistinguishable between groups.</h3>
+        <p>Self-reported SDA index scores were nearly identical for faculty/professors (M = 11.7) and students (M = 12.0), suggesting that participants in both groups had comparable exposure to Adventist cultural and church involvement. This shared baseline lets us isolate the more meaningful differences that follow.</p>
+        <span class="stat">χ²(1) = 0.13, p = .72</span>
+      </article>
+
+      <article class="finding primary">
+        <span class="finding-tag">Primary finding · Strongly significant</span>
+        <h3>Students reported substantially more permissive attitudes toward dance.</h3>
+        <p>Despite the similar cultural exposure indicated by the SDA index, students scored more than twice as high on the Dancing index (M = 6.50) as faculty/professors (M = 2.88), a large and highly significant effect. This suggests that attitudes toward dance shift markedly across groups even when broader religious involvement does not.</p>
+        <span class="stat">F(1, 39) ≈ 14, p &lt; .001, η²p ≈ .25</span>
+      </article>
+
+      <article class="finding support">
+        <span class="finding-tag">Supporting finding · Significant at threshold</span>
+        <h3>Students also scored higher on observed dance performance.</h3>
+        <p>Students outperformed faculty/professors on the rubric-scored line-dance task (M = 13.75 vs. M = 10.94). The result reached the conventional significance threshold, with a moderate standardized effect, though the lower bound of the confidence interval brushed zero — a result we interpret as suggestive and worth replicating.</p>
+        <span class="stat">F(1, 39) = 4.10, p = .050, η²p = .10</span>
+      </article>
+    </div>
+
+    <div class="pullquote">
+      <p>“Although SDA index did not significantly differ between students and faculty, dance performance did. Similar exposure to Adventist culture does not necessarily predict similar dance performance — generational and social factors may play a larger role in shaping comfort, confidence, and embodied movement.”</p>
+      <span class="attribution">Main takeaway</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============== RESULTS TABLE ============== -->
+<section id="results" class="alt-bg">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-num">06 / Results</span>
+      <h2>Statistical summary</h2>
+      <p class="section-lede">Group descriptives paired with the inferential test for each measure.</p>
+    </div>
+
+    <div class="table-wrap">
+      <table class="results">
+        <thead>
+          <tr>
+            <th>Measure</th>
+            <th>Faculty / Professor (n = 17)</th>
+            <th>Student (n = 24)</th>
+            <th>Group difference</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>SDA index</strong> (church involvement)</td>
+            <td class="num">11.7 (5.67)</td>
+            <td class="num">12.0 (2.31)</td>
+            <td><span class="ns">n.s.</span></td>
+          </tr>
+          <tr>
+            <td><strong>Dancing index</strong> (attitudes)</td>
+            <td class="num">2.88 (2.34)</td>
+            <td class="num">6.50 (3.39)</td>
+            <td><span class="sig">∗∗∗</span></td>
+          </tr>
+          <tr>
+            <td><strong>Dance performance score</strong></td>
+            <td class="num">10.94 (4.89)</td>
+            <td class="num">13.75 (3.98)</td>
+            <td><span class="sig">∗</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="table-caption">
+      <em>Table 1.</em> Descriptive statistics and group comparisons among Seventh-day Adventist participants (<em>N</em> = 41). Values are means (standard deviations). SDA index was compared via Kruskal–Wallis test due to unequal variances; Dancing index and Dance performance were compared via independent-samples <em>t</em>-test. SDA index: <em>χ²</em>(1) = 0.13, <em>p</em> = .72. Dancing index: <em>F</em>(1, 39) ≈ 14, <em>p</em> &lt; .001, <em>η²p</em> ≈ .25. Dance performance: <em>F</em>(1, 39) = 4.10, <em>p</em> = .050, <em>η²p</em> = .10. ∗∗∗ <em>p</em> &lt; .001; ∗ <em>p</em> ≤ .05; n.s. = not significant.
+    </p>
+  </div>
+</section>
+
+<!-- ============== FIGURES ============== -->
+<section id="figures" class="figures">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-num">07 / Figures</span>
+      <h2>Visual summary</h2>
+      <p class="section-lede">Three figures, each chosen to communicate one specific aspect of the result.</p>
+    </div>
+
+    <div class="grid">
+
+      <!-- Figure 1: Dancing index boxplot — HERO -->
+      <figure class="figure-card featured">
+        <div class="figure-img">
+          <img src="figures/figure1_dancing_by_standing.png" alt="Boxplot of Dancing index by participant standing. Students score substantially higher than faculty/professors." />
+        </div>
+        <figcaption class="figure-meta">
+          <p><strong>Figure 1.</strong> Dancing index by participant standing. Boxes show interquartile range and median; black squares indicate group means; gray dots show individual scores. Students (<em>n</em> = 24, <em>M</em> = 6.50, <em>SD</em> = 3.39) reported substantially more permissive attitudes toward dance than faculty/professors (<em>n</em> = 17, <em>M</em> = 2.88, <em>SD</em> = 2.34), <em>F</em>(1, 39) ≈ 14, <em>p</em> &lt; .001, <em>η²p</em> ≈ .25.</p>
+        </figcaption>
+      </figure>
+
+      <!-- Figure 2: SDA index ridgeline -->
+      <figure class="figure-card">
+        <div class="figure-img">
+          <img src="figures/figure2_sda_by_age_ridgeline.png" alt="Ridgeline plot of SDA index distribution across age groups." />
+        </div>
+        <figcaption class="figure-meta">
+          <p><strong>Figure 2.</strong> Distribution of SDA (church involvement) index scores across age groups (<em>N</em> = 41). Although medians cluster between 11 and 13 across all bands, distributions differ markedly in shape — tight and unimodal in 18–24, broad across 35–64, bimodal in 65+. The 25–34 band (<em>n</em> = 1) is shown for completeness. Formal comparison by standing yielded no group difference, <em>χ²</em>(1) = 0.13, <em>p</em> = .72.</p>
+        </figcaption>
+      </figure>
+
+      <!-- Figure 3: Dance performance boxplot -->
+      <figure class="figure-card">
+        <div class="figure-img">
+          <img src="figures/figure3_performance_by_standing.png" alt="Boxplot of Dance performance score by participant standing." />
+        </div>
+        <figcaption class="figure-meta">
+          <p><strong>Figure 3.</strong> Dance performance score by participant standing. Boxes show interquartile range and median; black squares indicate group means; gray dots show individual scores. Students (<em>n</em> = 24, <em>M</em> = 13.75) outperformed faculty/professors (<em>n</em> = 17, <em>M</em> = 10.94), <em>F</em>(1, 39) = 4.10, <em>p</em> = .050, <em>η²p</em> = .10. The lower bound of the 95% confidence interval for the mean difference brushed zero, suggesting a preliminary effect that warrants replication.</p>
+        </figcaption>
+      </figure>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============== DISCUSSION ============== -->
+<section id="discussion">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-num">08 / Discussion</span>
+      <h2>Interpreting the results</h2>
+    </div>
+
+    <p>Three findings emerged from this study, and each contributes to the same broader question: how do religious culture, generational identity, and embodied behavior interact within an Adventist community?</p>
+
+    <p>First, students and faculty/professors reported essentially identical levels of church involvement. We treat this <em>informative null</em> as a strength of the design rather than an absence of finding: it suggests that participants in both groups had comparable exposure to Adventist cultural and religious life, which provides a useful baseline against which more specific differences can be evaluated.</p>
+
+    <p>Second, despite that shared cultural baseline, the two groups differed sharply in their attitudes toward dance. Students were substantially more permissive on the Dancing index, with a large effect that is unlikely to be a sampling artifact even at this sample size. This pattern raises important questions about how attitudes toward culturally contested practices shift across generations within a single faith community.</p>
+
+    <p>Third, students also performed somewhat better on the observed line-dance task. Although this result reached significance at the conventional threshold, the confidence interval included values close to zero and we interpret the finding as suggestive rather than conclusive — a signal that warrants confirmation in a larger sample.</p>
+
+    <p>Read together, these findings may indicate that <strong>similar exposure to Adventist culture does not necessarily predict similar dance attitudes or dance performance</strong>. Generational, social, educational, or comfort-related factors appear to operate alongside religious involvement and may shape embodied behaviors such as dance in ways that simple measures of church involvement cannot capture. We do not claim a causal relationship; instead we offer this pattern as a contribution to the broader conversation about how religious identity and embodied practice interact, and as a starting point for more rigorous follow-up.</p>
+  </div>
+</section>
+
+<!-- ============== LIMITATIONS ============== -->
+<section id="limitations" class="alt-bg">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-num">09 / Limitations</span>
+      <h2>Honest scope of this study</h2>
+      <p class="section-lede">This is an exploratory student research project; the limitations below should guide how the findings are read.</p>
+    </div>
+
+    <ul class="clean-list">
+      <li><strong>Small convenience sample.</strong> N = 41 from a single Adventist institution limits both statistical power and generalization. Only moderate-to-large effects could be reliably detected.</li>
+      <li><strong>Unequal group sizes and limited older-generation representation.</strong> 17 faculty vs. 24 students; the 25–34 age band contained only one participant, leaving a gap between the dominant student (18–24) and faculty (35+) age clusters.</li>
+      <li><strong>Self-report bias.</strong> Both the SDA index and Dancing index rely on self-report, and faculty in particular may underreport positive attitudes toward a culturally disputed practice.</li>
+      <li><strong>Single dance task.</strong> Dance performance was based on one observed line dance. Inter-rater agreement for the rubric should be reported transparently to support the borderline performance result.</li>
+      <li><strong>Cross-sectional design.</strong> No causal claims are warranted; we cannot speak to how attitudes, performance, or involvement develop over time.</li>
+      <li><strong>Confounded categories.</strong> Standing (faculty vs. student) is closely correlated with age and life stage, so the observed group differences should be understood as a composite of those factors rather than the effect of standing alone.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============== FUTURE RESEARCH ============== -->
+<section id="future">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-num">10 / Future Research</span>
+      <h2>Where this leads</h2>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <span class="card-icon amber" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </span>
+        <h3>Multi-site replication</h3>
+        <p>Recruit Adventist participants from multiple campuses and congregations to test whether the student–faculty divergence in dance attitudes generalizes beyond a single institution.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </span>
+        <h3>Validated measures</h3>
+        <p>Develop or adopt validated instruments for both attitudes toward dance and observed dance ability, including inter-rater reliability statistics on the rubric.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon navy" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </span>
+        <h3>Disentangle age from role</h3>
+        <p>Future studies should oversample the 25–34 and 50–64 bands to separate generational effects from the institutional roles of "student" and "faculty," which are otherwise confounded.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon amber" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><line x1="9" y1="13" x2="15" y2="13"/></svg>
+        </span>
+        <h3>Qualitative interviews</h3>
+        <p>Pair quantitative measures with semi-structured interviews to understand how participants reason about dance in relation to faith, generation, and community belonging.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== MATERIALS ============== -->
+<section id="materials" class="contact">
+  <div class="container">
+    <span class="section-num">11 / Materials &amp; Contact</span>
+    <h2>Read more or get in touch</h2>
+    <p>Access the full manuscript, the raw Jamovi dataset, or reach out to the research team directly.</p>
+
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="https://docs.google.com/document/d/1vNeDvFnBAWtvHMRiBmYEAZAf1kXYYcMezLGJA5K1ehw/edit?usp=sharing" target="_blank" rel="noopener" style="background: var(--amber-bright); color: var(--navy-deep);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Full Manuscript (Google Doc)
+      </a>
+      <a class="btn btn-ghost" href="SDA_dance_data.omv" download>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download Raw Data (OMV)
+      </a>
+      <a class="btn btn-ghost" href="mailto:castrokeyla@southern.edu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Contact Us For More Info
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="container">
+    © 2026 Peyton Meadows · Keyla Castro · Brendon Kang · John Chawnghlut · Department of Biology, Southern Adventist University · <a href="mailto:castrokeyla@southern.edu">castrokeyla@southern.edu</a>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   Minimal, dependency-free JS:
+   - Mobile nav toggle
+   - Active link highlighting on scroll
+   - Fade-in animation on scroll (IntersectionObserver)
+============================================================ */
+(function() {
+  // Mobile nav toggle
+  const toggle = document.querySelector('.nav-toggle');
+  const links = document.querySelector('.nav-links');
+  if (toggle && links) {
+    toggle.addEventListener('click', function() {
+      const open = links.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    links.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        links.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+
+  // Active link on scroll
+  const sections = Array.from(document.querySelectorAll('section[id], header[id]'));
+  const navAnchors = Array.from(document.querySelectorAll('.nav-links a'));
+  function updateActive() {
+    const y = window.scrollY + 100;
+    let current = sections[0]?.id;
+    for (const s of sections) {
+      if (s.offsetTop <= y) current = s.id;
+    }
+    navAnchors.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+  }
+  window.addEventListener('scroll', updateActive, { passive: true });
+  updateActive();
+
+  // Activate JS-conditional styles only after we know JS works
+  document.documentElement.classList.add('js-ready');
+
+  // Fade-in on scroll (with a 3-second safety net so nothing stays hidden)
+  const candidates = document.querySelectorAll('section .card, section .finding, section .stat-tile, section .figure-card, .pullquote, .table-wrap');
+  candidates.forEach(el => el.classList.add('fade-in'));
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -10% 0px' });
+    candidates.forEach(el => io.observe(el));
+  } else {
+    candidates.forEach(el => el.classList.add('visible'));
+  }
+  // Failsafe: if anything is still hidden after 3s, reveal it.
+  setTimeout(() => {
+    candidates.forEach(el => el.classList.add('visible'));
+  }, 3000);
+})();
+</script>
+</body>
+</html>
